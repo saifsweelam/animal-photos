@@ -24,7 +24,7 @@ class User(Base):
         return pwd_context.verify(password, self.password_hash)
 
 class Species(Base):
-    __tablename__ = 'category'
+    __tablename__ = 'species'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
@@ -37,7 +37,7 @@ class Species(Base):
         }
 
 class Photo(Base):
-    __tablename__ = 'scholar'
+    __tablename__ = 'photo'
 
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False)
@@ -55,7 +55,7 @@ class Photo(Base):
             'url': self.url
         }
 
-engine = create_engine('sqlite:///restaurantmenuwithusers.db')
+engine = create_engine('sqlite:///animalphotos.db')
  
 
 Base.metadata.create_all(engine)
