@@ -5,5 +5,62 @@
 }
 
 #result {
-    
+    border: 0.5px solid grey;
+    padding: 2em;
+    width: fit-content;
+    text-align: center;
+    margin: 0 auto;
+    background-color: rgb(255, 115, 0);
+    box-shadow: 10px 12px 5px -5px rgba(0,0,0,0.71);
+}
+
+.header {
+    width: 100%;
+    background: #ffae00;
+    padding: 2em;
+}
+
+#title, #login_area {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+#login_area {
+    width: 50%;
+    background: green;
+}
+
+#title {
+    background: yellow;
+}
+
+body {
+    text-align: center;
+    background-color: blanchedalmond;
+    font-family: 'Ubuntu','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-family: Monoton;
+    font-size: 70px;
+    margin: 0.2em;
+}
+
+h2 {
+    margin: 1em 0 0.25em;
+}
+
+
+table,
+tr,
+td {
+    border: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
 }

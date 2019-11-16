@@ -41,8 +41,17 @@ def showSpecies():
         species = [Species(name='No species found')]
     if 'username' not in login_session:
         return render_template('publichome.html', species=species)
-    return render_template('home.html', species=species)
+    return render_template('publichome.html', species=species)
 
+# A webpage to display photos in a species
+@app.route('/species/<int:species_id>')
+def showPhotos(species_id):
+    photos = session.query(Photo).filter_by(species_id=species_id).all()
+    if 'username' not in login_session:
+        return render_template('publichome.html', species=photos)
+    return render_template('publichome.html', species=photos)
+
+# Route for Login Page
 @app.route('/login')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
@@ -50,6 +59,7 @@ def showLogin():
     login_session['state'] = state
     return render_template('login.html', STATE=state)
 
+# Method to connect to Google and Login
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     # Validate state token

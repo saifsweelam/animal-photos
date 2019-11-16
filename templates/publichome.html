@@ -12,13 +12,13 @@
             <h3>Animal photography worldwide network</h3>
         </div>
         <div class="login_area">
-            <a href='#'>Login</a>
+            <a href='{{url_for("showLogin")}}'>Login</a>
         </div>
     </div>
     <div class="list">
         {% for x in species %}
         <div class="item">
-            <a href='#'>{{x.name}}</a>
+            <a href='{{url_for("showPhotos", species_id=x.id)}}'>{{x.name}}</a>
         </div>
         {% endfor %}
     </div>
