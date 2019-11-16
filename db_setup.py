@@ -44,7 +44,9 @@ class Photo(Base):
     description = Column(String(360))
     url = Column(String, nullable=False)
     species_id = Column(Integer, ForeignKey('species.id'))
+    user_id = Column(Integer, ForeignKey('user.id'))
     species = relationship(Species)
+    user = relationship(User)
 
     @property
     def serialize(self):
