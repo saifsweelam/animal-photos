@@ -41,7 +41,7 @@ def showSpecies():
         species = [Species(name='No species found')]
     if 'username' not in login_session:
         return render_template('publichome.html', species=species)
-    return render_template('publichome.html', species=species)
+    return render_template('home.html', species=species)
 
 # A webpage to display photos in a species
 @app.route('/species/<int:species_id>')
