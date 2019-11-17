@@ -20,7 +20,7 @@
     padding: 2em;
 }
 
-#title, #login_area {
+.title, .login_area {
     display: inline-block;
     *display: inline;
     zoom: 1;
@@ -28,13 +28,14 @@
     font-size: 12px;
 }
 
-#login_area {
-    width: 50%;
-    background: green;
+.login_area {
+    width: 10%;
+    padding:2em;
+    margin: 2em;
 }
 
-#title {
-    background: yellow;
+.title {
+    width: 60%;
 }
 
 body {
@@ -63,4 +64,17 @@ td {
 table {
     border-collapse: collapse;
     margin: 0 auto;
+}
+
+a:link, a:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: red;
 }
