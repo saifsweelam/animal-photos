@@ -37,8 +37,6 @@ app = Flask(__name__)
 @app.route('/species')
 def showSpecies():
     species = session.query(Species).all()
-    if species is None:
-        species = [Species(name='No species found')]
     if 'username' not in login_session:
         return render_template('publichome.html', species=species)
     return render_template('home.html', species=species)
@@ -49,7 +47,7 @@ def showPhotos(species_id):
     photos = session.query(Photo).filter_by(species_id=species_id).all()
     if 'username' not in login_session:
         return render_template('publichome.html', species=photos)
-    return render_template('publichome.html', species=photos)
+    return render_template('home.html', species=photos)
 
 # Route for Login Page
 @app.route('/login')

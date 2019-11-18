@@ -12,15 +12,27 @@
             <h3>Animal photography worldwide network</h3>
         </div>
         <div class="login_area">
-            <a href='{{url_for("showLogin")}}'>Login</a>
+            <a href='{{url_for("gdisconnect")}}'>Logout</a>
         </div>
     </div>
-    <div class="list">
-        {% for x in species %}
-        <div class="item">
-            <a href='{{url_for("showPhotos", species_id=x.id)}}'>{{x.name}}</a>
+    <div class="page">
+        <div class="list">
+            {% for x in species %}
+            <div class="item">
+                <p><a href='{{url_for("showPhotos", species_id=x.id)}}'>{{x.name}}</a></p>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <div class="sidebar">
+            <div class="about">
+                <h5>About Animal Photos</h5>
+                <p>
+                    This Web App was designed by <em>Seif El-Din Sweilam</em> as a project in <strong>Udacity</strong>
+                    nanodegree program. All photos and content in this webapp are for educational purposes only and
+                    won't be used in any type of business.
+                </p>
+            </div>
+        </div>
     </div>
 </body>
 
