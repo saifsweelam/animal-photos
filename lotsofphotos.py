@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from db_setup import Photo, Base, Species, User
 
-engine = create_engine('sqlite:///speciesmenuwithusers.db')
+engine = create_engine('sqlite:///animalphotos.db')
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
 Base.metadata.bind = engine
@@ -20,367 +20,167 @@ session = DBSession()
 
 
 # Create dummy user
-User1 = User(username="Mohamed Essam", email="el3os@fakemail.com",
+user1 = User(username="Mohamed Essam", email="el3os@fakemail.com",
              picture='https://pbs.twimg.com/profile_images/2671170543/18debd694829ed78203a5a36dd364160_400x400.png')
-session.add(User1)
+session.add(user1)
 session.commit()
 
-# Menu for UrbanBurger
-species1 = Species(user_id=1, name="Urban Burger")
+# Photos for Cats
+species1 = Species(name="Cats")
 
 session.add(species1)
 session.commit()
 
-Photo2 = Photo(user_id=1, name="Veggie Burger", description="Juicy grilled veggie patty with tomato mayo and lettuce",
-                     price="$7.50", course="Entree", species=species1)
+photo1 = Photo(user_id=1, title="Woman Yelling at Cat Meme Takes Over", description="The cat with the attitude is named Smudge, also referred to as Smudge the Table Cat.  He first found fame when his owner posted a picture of him to Tumbler as he lounged on a table with the caption: “he no like vegetables”. Apparently the owner saw something in the way of talent with her fur baby and started Smudge an Instagram page, @smudge_lord, that  now has 1.1million followers.",
+                     url="https://townsquare.media/site/87/files/2019/11/Woman-Cat-Meme.jpg", user=user1, species=species1)
 
-session.add(Photo2)
+session.add(photo1)
 session.commit()
 
 
-Photo1 = Photo(user_id=1, name="French Fries", description="with garlic and parmesan",
-                     price="$2.99", course="Appetizer", species=species1)
+photo2 = Photo(user_id=1, title="The Face That Launched A Million Memes", description="Grumpy Cat was rather like the real-life incarnation of Garfield, whose entire appeal rests on being a cat who dislikes Mondays (despite not having a job). The Garfield brand has permeated every conceivable merchandising and media niche, and the fictional feline (perhaps inevitably) paired up with his grumpy counterpart in a book series.",
+                     url="https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fspecials-images.forbesimg.com%2Fdam%2Fimageserve%2Fb510ccc8012f4718bd691a6b78b70921%2F960x0.jpg", user=user1, species=species1)
 
-session.add(Photo1)
+session.add(photo2)
 session.commit()
 
-Photo2 = Photo(user_id=1, name="Chicken Burger", description="Juicy grilled chicken patty with tomato mayo and lettuce",
-                     price="$5.50", course="Entree", species=species1)
+photo3 = Photo(user_id=1, title="How cute this is !!",
+                     url="https://live.staticflickr.com/3689/8989851909_9b78222fbb.jpg", user=user1, species=species1)
 
-session.add(Photo2)
+session.add(photo3)
 session.commit()
 
-Photo3 = Photo(user_id=1, name="Chocolate Cake", description="fresh baked and served with ice cream",
-                     price="$3.99", course="Dessert", species=species1)
+photo4 = Photo(user_id=1, title="The Best Stitch <3",
+                     url="https://i.ibb.co/YZmQSFq/stitch.png", user=user1, species=species1)
 
-session.add(Photo3)
+session.add(photo4)
 session.commit()
 
-Photo4 = Photo(user_id=1, name="Sirloin Burger", description="Made with grade A beef",
-                     price="$7.99", course="Entree", species=species1)
+photo5 = Photo(user_id=1, title="The laughing cat",
+                     url="https://farm1.staticflickr.com/969/41428417955_03d64e2a02_b.jpg", user=user1, species=species1)
 
-session.add(Photo4)
+session.add(photo5)
 session.commit()
 
-Photo5 = Photo(user_id=1, name="Root Beer", description="16oz of refreshing goodness",
-                     price="$1.99", course="Beverage", species=species1)
+photo6 = Photo(user_id=1, title="Stitch the real moon",
+                     url="https://i.ibb.co/DK4KyJr/stitch.jpg", user=user1, species=species1)
 
-session.add(Photo5)
+session.add(photo6)
 session.commit()
 
-Photo6 = Photo(user_id=1, name="Iced Tea", description="with Lemon",
-                     price="$.99", course="Beverage", species=species1)
+photo7 = Photo(user_id=1, title="Cats are Cute !!",
+                     url="https://dreamastromeanings.com/wp-content/uploads/2019/07/Cat-Crying-at-Night-Superstition-and-Meaning.jpg", user=user1, species=species1)
 
-session.add(Photo6)
+session.add(photo7)
 session.commit()
 
-Photo7 = Photo(user_id=1, name="Grilled Cheese Sandwich",
-                     description="On texas toast with American Cheese", price="$3.49", course="Entree", species=species1)
-
-session.add(Photo7)
-session.commit()
-
-Photo8 = Photo(user_id=1, name="Veggie Burger", description="Made with freshest of ingredients and home grown spices",
-                     price="$5.99", course="Entree", species=species1)
-
-session.add(Photo8)
-session.commit()
-
-
-# Menu for Super Stir Fry
-species2 = Species(user_id=1, name="Super Stir Fry")
+# Photos for Turtles
+species2 = Species(name="Turtles")
 
 session.add(species2)
 session.commit()
 
 
-Photo1 = Photo(user_id=1, name="Chicken Stir Fry", description="With your choice of noodles vegetables and sauces",
-                     price="$7.99", course="Entree", species=species2)
+photo1 = Photo(user_id=1, title="Green Sea Turtle!", description="The green sea turtle is an endangered species with a population that is, unfortunately, on the decline. However, they can be seen on the Great Barrier Reef and Lady Elliot Island, at the southern end of the reef. This is a perfect place to see these oceanic reptiles. While snorkelling, with my camera in an underwater housing, this inquisitive turtle decided to have a closer look, investigating me and my camera. It was an incredible experience and wonderful to photograph this creature in the wild.",
+                     url="https://cdn11.bigcommerce.com/s-s5d5u8bn61/images/stencil/1280x1280/products/238/1076/0E3A7368-1_Lagoon_green_turtle__75795.1548630091.jpg", user=user1, species=species2)
 
-session.add(Photo1)
+session.add(photo1)
 session.commit()
 
-Photo2 = Photo(user_id=1, name="Peking Duck",
-                     description=" A famous duck dish from Beijing[1] that has been prepared since the imperial era. The meat is prized for its thin, crisp skin, with authentic versions of the dish serving mostly the skin and little meat, sliced in front of the diners by the cook", price="$25", course="Entree", species=species2)
+photo2 = Photo(user_id=1, title="A very young turtle", description="Reports of tiny turtles being given away as prizes for a carnival game at the San Juan County Fair spread across the island community’s social media groups on Friday, Aug. 16. Islanders claimed to have seen teenagers throw the shelled reptiles off of the Zipper, a carnival attraction that takes riders more than 50 feet into the air.",
+                     url="http://www.islandssounder.com/wp-content/uploads/2019/08/18147278_web1_TSR-Turtletroubles-JSJ-190821.jpg", user=user1, species=species2)
 
-session.add(Photo2)
+session.add(photo2)
 session.commit()
 
-Photo3 = Photo(user_id=1, name="Spicy Tuna Roll", description="Seared rare ahi, avocado, edamame, cucumber with wasabi soy sauce ",
-                     price="15", course="Entree", species=species2)
+photo3 = Photo(user_id=1, title="The lovely Pep",
+                     url="https://i.ibb.co/nj3tJk4/stitch.png", user=user1, species=species2)
 
-session.add(Photo3)
+session.add(photo3)
 session.commit()
 
-Photo4 = Photo(user_id=1, name="Nepali Momo ", description="Steamed dumplings made with vegetables, spices and meat. ",
-                     price="12", course="Entree", species=species2)
+photo4 = Photo(user_id=1, title="How beautiful is this!",
+                     url="https://www.wthr.com/sites/default/files/styles/article_image/public/2019/06/28/boxturtle970ss.jpg", user=user1, species=species2)
 
-session.add(Photo4)
-session.commit()
-
-Photo5 = Photo(user_id=1, name="Beef Noodle Soup", description="A Chinese noodle soup made of stewed or red braised beef, beef broth, vegetables and Chinese noodles.",
-                     price="14", course="Entree", species=species2)
-
-session.add(Photo5)
-session.commit()
-
-Photo6 = Photo(user_id=1, name="Ramen", description="a Japanese noodle soup dish. It consists of Chinese-style wheat noodles served in a meat- or (occasionally) fish-based broth, often flavored with soy sauce or miso, and uses toppings such as sliced pork, dried seaweed, kamaboko, and green onions.",
-                     price="12", course="Entree", species=species2)
-
-session.add(Photo6)
+session.add(photo4)
 session.commit()
 
 
-# Menu for Panda Garden
-species1 = Species(user_id=1, name="Panda Garden")
+# Photos for Dogs
+species3 = Species(name="Dogs")
+
+session.add(species3)
+session.commit()
+
+
+photo1 = Photo(title="Cute Dog Kiss Of The Day", description="With how cute I am I could be charging a fortune. But I am a simple dog. All I need are kisses and a full food dish.",
+                     url="https://i.pinimg.com/originals/3e/8a/d9/3e8ad9163e7633370687539efb9d8378.jpg", user=user1, species=species3)
+
+session.add(photo1)
+session.commit()
+
+photo2 = Photo(title="your daily cute puppy",
+                     url="https://static.standard.co.uk/s3fs-public/thumbnails/image/2019/03/15/17/pixel-dogsofinstagram-3-15-19.jpg", user=user1, species=species3)
+
+session.add(photo2)
+session.commit()
+
+photo3 = Photo(title="Cute Dog !",
+                     url="https://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/embed/public/2018/08/26/cute-dog.jpg", user=user1, species=species3)
+
+session.add(photo3)
+session.commit()
+
+photo4 = Photo(title="Having a flight with a dog",
+                     url="https://cdn.cnn.com/cnnnext/dam/assets/180316113418-travel-with-a-dog-3.jpg", user=user1, species=species3)
+
+session.add(photo4)
+session.commit()
+
+photo5 = Photo(title="An Adorable puppy",
+                     url="https://assets.blog.slice.ca/imageserve/wp-content/uploads/2019/01/10142947/cute-dog-names-ideas-cardi/x.jpg", user=user1, species=species3)
+
+session.add(photo5)
+session.commit()
+
+
+
+
+# Photos for Birds
+species1 = Species(name="Birds")
 
 session.add(species1)
 session.commit()
 
 
-Photo1 = Photo(user_id=1, name="Pho", description="a Vietnamese noodle soup consisting of broth, linguine-shaped rice noodles called banh pho, a few herbs, and meat.",
-                     price="$8.99", course="Entree", species=species1)
+photo5 = Photo(title="Baby Hawk", description="oh my goodness cute baby hawk *cough* *cough* I mean adult peregrine falcon.",
+                     url="https://i.pinimg.com/originals/c3/f8/08/c3f808a94c3ceaec34e854e470f57748.jpg", user=user1, species=species1)
 
-session.add(Photo1)
+session.add(photo5)
 session.commit()
 
-Photo2 = Photo(user_id=1, name="Chinese Dumplings", description="a common Chinese dumpling which generally consists of minced meat and finely chopped vegetables wrapped into a piece of dough skin. The skin can be either thin and elastic or thicker.",
-                     price="$6.99", course="Appetizer", species=species1)
+photo6 = Photo(title="Hedwig",
+                     url="https://i.pinimg.com/564x/75/71/6a/75716ace36067e0f34709a01830ad826.jpg", user=user1, species=species1)
 
-session.add(Photo2)
+session.add(photo6)
 session.commit()
 
-Photo3 = Photo(user_id=1, name="Gyoza", description="light seasoning of Japanese gyoza with salt and soy sauce, and in a thin gyoza wrapper",
-                     price="$9.95", course="Entree", species=species1)
+photo7 = Photo(title="Hedwig",
+                     url="https://i.pinimg.com/564x/75/71/6a/75716ace36067e0f34709a01830ad826.jpg", user=user1, species=species1)
 
-session.add(Photo3)
+session.add(photo7)
 session.commit()
 
-Photo4 = Photo(user_id=1, name="Stinky Tofu", description="Taiwanese dish, deep fried fermented tofu served with pickled cabbage.",
-                     price="$6.99", course="Entree", species=species1)
+photo8 = Photo(title="Hens are the best",
+                     url="https://image.freepik.com/free-photo/big-nice-beautiful-white-black-hens-feeding-outdoors-green-meadow_127089-67.jpg", user=user1, species=species1)
 
-session.add(Photo4)
+session.add(photo8)
 session.commit()
 
-Photo2 = Photo(user_id=1, name="Veggie Burger", description="Juicy grilled veggie patty with tomato mayo and lettuce",
-                     price="$9.50", course="Entree", species=species1)
+photo9 = Photo(title="Nice looking birds",
+                     url="http://exporters.com.tr/data/frontFiles/b2b/product_images/1%20Nice%20birs.jpg", user=user1, species=species1)
 
-session.add(Photo2)
+session.add(photo9)
 session.commit()
 
-
-# Menu for Thyme for that
-species1 = Species(user_id=1, name="Thyme for That Vegetarian Cuisine ")
-
-session.add(species1)
-session.commit()
-
-
-Photo1 = Photo(user_id=1, name="Tres Leches Cake", description="Rich, luscious sponge cake soaked in sweet milk and topped with vanilla bean whipped cream and strawberries.",
-                     price="$2.99", course="Dessert", species=species1)
-
-session.add(Photo1)
-session.commit()
-
-Photo2 = Photo(user_id=1, name="Mushroom risotto", description="Portabello mushrooms in a creamy risotto",
-                     price="$5.99", course="Entree", species=species1)
-
-session.add(Photo2)
-session.commit()
-
-Photo3 = Photo(user_id=1, name="Honey Boba Shaved Snow",
-                     description="Milk snow layered with honey boba, jasmine tea jelly, grass jelly, caramel, cream, and freshly made mochi", price="$4.50", course="Dessert", species=species1)
-
-session.add(Photo3)
-session.commit()
-
-Photo4 = Photo(user_id=1, name="Cauliflower Manchurian", description="Golden fried cauliflower florets in a midly spiced soya,garlic sauce cooked with fresh cilantro, celery, chilies,ginger & green onions",
-                     price="$6.95", course="Appetizer", species=species1)
-
-session.add(Photo4)
-session.commit()
-
-Photo5 = Photo(user_id=1, name="Aloo Gobi Burrito", description="Vegan goodness. Burrito filled with rice, garbanzo beans, curry sauce, potatoes (aloo), fried cauliflower (gobi) and chutney. Nom Nom",
-                     price="$7.95", course="Entree", species=species1)
-
-session.add(Photo5)
-session.commit()
-
-Photo2 = Photo(user_id=1, name="Veggie Burger", description="Juicy grilled veggie patty with tomato mayo and lettuce",
-                     price="$6.80", course="Entree", species=species1)
-
-session.add(Photo2)
-session.commit()
-
-
-# Menu for Tony's Bistro
-species1 = Species(user_id=1, name="Tony\'s Bistro ")
-
-session.add(species1)
-session.commit()
-
-
-Photo1 = Photo(user_id=1, name="Shellfish Tower", description="Lobster, shrimp, sea snails, crawfish, stacked into a delicious tower",
-                     price="$13.95", course="Entree", species=species1)
-
-session.add(Photo1)
-session.commit()
-
-Photo2 = Photo(user_id=1, name="Chicken and Rice", description="Chicken... and rice",
-                     price="$4.95", course="Entree", species=species1)
-
-session.add(Photo2)
-session.commit()
-
-Photo3 = Photo(user_id=1, name="Mom's Spaghetti", description="Spaghetti with some incredible tomato sauce made by mom",
-                     price="$6.95", course="Entree", species=species1)
-
-session.add(Photo3)
-session.commit()
-
-Photo4 = Photo(user_id=1, name="Choc Full O\' Mint (Smitten\'s Fresh Mint Chip ice cream)",
-                     description="Milk, cream, salt, ..., Liquid nitrogen magic", price="$3.95", course="Dessert", species=species1)
-
-session.add(Photo4)
-session.commit()
-
-Photo5 = Photo(user_id=1, name="Tonkatsu Ramen", description="Noodles in a delicious pork-based broth with a soft-boiled egg",
-                     price="$7.95", course="Entree", species=species1)
-
-session.add(Photo5)
-session.commit()
-
-
-# Menu for Andala's
-species1 = Species(user_id=1, name="Andala\'s")
-
-session.add(species1)
-session.commit()
-
-
-Photo1 = Photo(user_id=1, name="Lamb Curry", description="Slow cook that thang in a pool of tomatoes, onions and alllll those tasty Indian spices. Mmmm.",
-                     price="$9.95", course="Entree", species=species1)
-
-session.add(Photo1)
-session.commit()
-
-Photo2 = Photo(user_id=1, name="Chicken Marsala", description="Chicken cooked in Marsala wine sauce with mushrooms",
-                     price="$7.95", course="Entree", species=species1)
-
-session.add(Photo2)
-session.commit()
-
-Photo3 = Photo(user_id=1, name="Potstickers", description="Delicious chicken and veggies encapsulated in fried dough.",
-                     price="$6.50", course="Appetizer", species=species1)
-
-session.add(Photo3)
-session.commit()
-
-Photo4 = Photo(user_id=1, name="Nigiri Sampler", description="Maguro, Sake, Hamachi, Unagi, Uni, TORO!",
-                     price="$6.75", course="Appetizer", species=species1)
-
-session.add(Photo4)
-session.commit()
-
-Photo2 = Photo(user_id=1, name="Veggie Burger", description="Juicy grilled veggie patty with tomato mayo and lettuce",
-                     price="$7.00", course="Entree", species=species1)
-
-session.add(Photo2)
-session.commit()
-
-
-# Menu for Auntie Ann's
-species1 = Species(user_id=1, name="Auntie Ann\'s Diner' ")
-
-session.add(species1)
-session.commit()
-
-Photo9 = Photo(user_id=1, name="Chicken Fried Steak",
-                     description="Fresh battered sirloin steak fried and smothered with cream gravy", price="$8.99", course="Entree", species=species1)
-
-session.add(Photo9)
-session.commit()
-
-
-Photo1 = Photo(user_id=1, name="Boysenberry Sorbet", description="An unsettlingly huge amount of ripe berries turned into frozen (and seedless) awesomeness",
-                     price="$2.99", course="Dessert", species=species1)
-
-session.add(Photo1)
-session.commit()
-
-Photo2 = Photo(user_id=1, name="Broiled salmon", description="Salmon fillet marinated with fresh herbs and broiled hot & fast",
-                     price="$10.95", course="Entree", species=species1)
-
-session.add(Photo2)
-session.commit()
-
-Photo3 = Photo(user_id=1, name="Morels on toast (seasonal)",
-                     description="Wild morel mushrooms fried in butter, served on herbed toast slices", price="$7.50", course="Appetizer", species=species1)
-
-session.add(Photo3)
-session.commit()
-
-Photo4 = Photo(user_id=1, name="Tandoori Chicken", description="Chicken marinated in yoghurt and seasoned with a spicy mix(chilli, tamarind among others) and slow cooked in a cylindrical clay or metal oven which gets its heat from burning charcoal.",
-                     price="$8.95", course="Entree", species=species1)
-
-session.add(Photo4)
-session.commit()
-
-Photo2 = Photo(user_id=1, name="Veggie Burger", description="Juicy grilled veggie patty with tomato mayo and lettuce",
-                     price="$9.50", course="Entree", species=species1)
-
-session.add(Photo2)
-session.commit()
-
-Photo10 = Photo(user_id=1, name="Spinach Ice Cream", description="vanilla ice cream made with organic spinach leaves",
-                      price="$1.99", course="Dessert", species=species1)
-
-session.add(Photo10)
-session.commit()
-
-
-# Menu for Cocina Y Amor
-species1 = Species(user_id=1, name="Cocina Y Amor ")
-
-session.add(species1)
-session.commit()
-
-
-Photo1 = Photo(user_id=1, name="Super Burrito Al Pastor",
-                     description="Marinated Pork, Rice, Beans, Avocado, Cilantro, Salsa, Tortilla", price="$5.95", course="Entree", species=species1)
-
-session.add(Photo1)
-session.commit()
-
-Photo2 = Photo(user_id=1, name="Cachapa", description="Golden brown, corn-based Venezuelan pancake; usually stuffed with queso telita or queso de mano, and possibly lechon. ",
-                     price="$7.99", course="Entree", species=species1)
-
-session.add(Photo2)
-session.commit()
-
-
-species1 = Species(user_id=1, name="State Bird Provisions")
-session.add(species1)
-session.commit()
-
-Photo1 = Photo(user_id=1, name="Chantrelle Toast", description="Crispy Toast with Sesame Seeds slathered with buttery chantrelle mushrooms",
-                     price="$5.95", course="Appetizer", species=species1)
-
-session.add(Photo1)
-session.commit
-
-Photo1 = Photo(user_id=1, name="Guanciale Chawanmushi",
-                     description="Japanese egg custard served hot with spicey Italian Pork Jowl (guanciale)", price="$6.95", course="Dessert", species=species1)
-
-session.add(Photo1)
-session.commit()
-
-
-Photo1 = Photo(user_id=1, name="Lemon Curd Ice Cream Sandwich",
-                     description="Lemon Curd Ice Cream Sandwich on a chocolate macaron with cardamom meringue and cashews", price="$4.25", course="Dessert", species=species1)
-
-session.add(Photo1)
-session.commit()
-
-
-print "added menu items!"
+print("added menu items!")
