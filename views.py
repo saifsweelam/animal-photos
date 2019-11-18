@@ -172,8 +172,8 @@ def gdisconnect():
         del login_session['email']
         del login_session['picture']
 
-        response = make_response(json.dumps('Successfully disconnected.'), 200)
-        response.headers['Content-Type'] = 'application/json'
+        response = make_response(json.dumps('Successfully disconnected.'), 301)
+        response.headers['Location'] = '/'
         return response
     else:
         # For whatever reason, the given token was invalid.
