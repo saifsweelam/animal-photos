@@ -1,7 +1,7 @@
 <html lang="en">
 
 <head>
-    <title>Animal Photos</title>
+    <title>Animal Photos | {{species.name}}</title>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Acme|Gloria+Hallelujah&display=swap" rel="stylesheet">
 </head>
@@ -31,7 +31,7 @@
                     {% if photo.description is not none %}
                     <p>{{photo.description}}</p>
                     {% endif %}
-                    <a href="#">View</a>
+                    <a href="{{url_for('showAPhoto',species_id=species.id, photo_id=photo.id)}}">View</a>
                 </div>
             </div>
             {% endfor %}

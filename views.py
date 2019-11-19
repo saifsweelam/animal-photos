@@ -44,10 +44,24 @@ def showSpecies():
 # A webpage to display photos in a species
 @app.route('/species/<int:species_id>')
 def showPhotos(species_id):
+    species = session.query(Species).filter_by(id=species_id).one()
     photos = session.query(Photo).filter_by(species_id=species_id).all()
     if 'username' not in login_session:
-        return render_template('publicphotos.html', photos=photos)
-    return render_template('photos.html', photos=photos)
+        return render_template('publicphotos.html', photos=photos, species=species)
+    return render_template('photos.html', photos=photos, species=species)
+
+
+# Show a specific Photo
+@app.route('/species/<int:species_id>/<int:photo_id>')
+def showAPhoto(species_id, photo_id):
+    species = session.query(Species).filter_by(id=species_id).one()
+    photo = session.query(Photo).filter_by(id=photo_id).one()
+    creator = session.query(User).filter_by(id=photo.user_id).one()
+    if 'username' not in login_session:
+        return render_template('publicphotoview.html', species=species, creator=creator, photo=photo)
+    if login_session['username'] != creator.username:
+        return render_template('photoview.html', species=species, creator=creator, photo=photo)
+    return render_template('userphotoview.html', species=species, creator=creator, photo=photo)
 
 # Route for Login Page
 @app.route('/login')

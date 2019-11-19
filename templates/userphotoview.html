@@ -1,7 +1,7 @@
 <html lang="en">
 
 <head>
-    <title>Animal Photos | {{species.name}}</title>
+    <title>Animal Photos | {{photo.title}}</title>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Acme|Gloria+Hallelujah&display=swap" rel="stylesheet">
 </head>
@@ -13,23 +13,34 @@
             <h3>Animal photography worldwide network</h3>
         </div>
         <div class="login_area">
-            <a href='{{url_for("showLogin")}}'>Login</a>
+            <a href='{{url_for("gdisconnect")}}'>Logout</a>
         </div>
     </div>
     <div class="page">
         <div class="list">
-            {% for photo in photos %}
-            <div class="card">
+            <div class="toolbar">
+                <a href="#" class="tool">Edit Post</a>
+                <a href="#" class="tool">Delete Post</a>
+                <a href="#" class="tool">My Uploads</a>
+            </div>
+            <div class="photo_viewer">
+                <div class="creator_data">
+                    {% if creator.picture is not none %}
+                    <img src="{{creator.picture}}" alt="{{creator.username}}" class="creator_pic">
+                    {% else %}
+                    <img src="{{url_for('static', filename='blank_user.gif')}}" alt="{{creator.username}}"
+                        class="creator_pic">
+                    {% endif %}
+                    <h6 class="creator_name">{{creator.username}}</h6>
+                </div>
                 <img src="{{photo.url}}" alt="{{photo.title}}" style="width:100%">
                 <div class="container">
                     <h5><b>{{photo.title}}</b></h5>
                     {% if photo.description is not none %}
                     <p>{{photo.description}}</p>
                     {% endif %}
-                    <a href="{{url_for('showAPhoto',species_id=species.id, photo_id=photo.id)}}">View</a>
                 </div>
             </div>
-            {% endfor %}
         </div>
         <div class="sidebar">
             <div id="about" class="box">
