@@ -18,15 +18,14 @@
     </div>
     <div class="page">
         <div class="list">
-            <div class="toolbar">
-                <a href="#" class="tool">Add a new species</a>
-                <a href="#" class="tool">Add a new photo</a>
-                <a href="#" class="tool">My Uploads</a>
-            </div>
-            {% for x in species %}
-            <div class="item">
-                <p><a href='{{url_for("showPhotos", species_id=x.id)}}'>{{x.name}}</a></p>
-            </div>
+            {% for photo in photos %}
+            <div class="card">
+                <img src="{{photo.url}}" alt="{{photo.title}}" style="width:100%">
+                <div class="container">
+                  <h4><b>{{photo.title}}</b></h4>
+                  <p>{{photo.description}}</p>
+                </div>
+              </div>
             {% endfor %}
         </div>
         <div class="sidebar">

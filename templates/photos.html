@@ -23,9 +23,16 @@
                 <a href="#" class="tool">Add a new photo</a>
                 <a href="#" class="tool">My Uploads</a>
             </div>
-            {% for x in species %}
-            <div class="item">
-                <p><a href='{{url_for("showPhotos", species_id=x.id)}}'>{{x.name}}</a></p>
+            {% for photo in photos %}
+            <div class="card">
+                <img src="{{photo.url}}" alt="{{photo.title}}" style="width:100%">
+                <div class="container">
+                    <h5><b>{{photo.title}}</b></h5>
+                    {% if photo.description is not none %}
+                    <p>{{photo.description}}</p>
+                    {% endif %}
+                    <a href="#">View</a>
+                </div>
             </div>
             {% endfor %}
         </div>

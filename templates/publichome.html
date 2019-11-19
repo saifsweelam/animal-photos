@@ -3,6 +3,7 @@
 <head>
     <title>Animal Photos</title>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Gloria+Hallelujah&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -12,7 +13,7 @@
             <h3>Animal photography worldwide network</h3>
         </div>
         <div class="login_area">
-            <a href='{{url_for("gdisconnect")}}'>Logout</a>
+            <a href='{{url_for("showLogin")}}'>Login</a>
         </div>
     </div>
     <div class="page">
@@ -24,7 +25,7 @@
             {% endfor %}
         </div>
         <div class="sidebar">
-            <div class="about">
+            <div id="about" class="box">
                 <h5>About Animal Photos</h5>
                 <p>
                     This Web App was designed by <em>Seif El-Din Sweilam</em> as a project in <strong>Udacity</strong>

@@ -46,8 +46,8 @@ def showSpecies():
 def showPhotos(species_id):
     photos = session.query(Photo).filter_by(species_id=species_id).all()
     if 'username' not in login_session:
-        return render_template('publichome.html', species=photos)
-    return render_template('home.html', species=photos)
+        return render_template('publicphotos.html', photos=photos)
+    return render_template('photos.html', photos=photos)
 
 # Route for Login Page
 @app.route('/login')

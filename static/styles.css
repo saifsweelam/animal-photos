@@ -15,17 +15,45 @@
 }
 
 .header {
-    width: 100%;
+    width: auto;
     background: #ffae00;
     padding: 2em;
 }
 
-.title, .login_area {
+.title, .login_area, .list, .sidebar, .card {
     display: inline-block;
     *display: inline;
     zoom: 1;
     vertical-align: top;
     font-size: 12px;
+}
+
+.card {
+    width: 40%;
+    margin:2em;
+}
+
+.toolbar {
+    background-color: rgb(255, 180, 110);
+    border-radius: 1em;
+    padding: 2em;
+}
+
+.sidebar {
+    width: 20%;
+}
+
+.tool {
+    margin-right: 1em;
+}
+
+.list {
+    width: 70%;
+    margin-right: 5em;
+}
+
+.page {
+    margin-top: 2em;
 }
 
 .login_area {
@@ -41,29 +69,19 @@
 body {
     text-align: center;
     background-color: blanchedalmond;
-    font-family: 'Ubuntu','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Acme', 'Ubuntu','Segoe UI', Tahoma, Geneva, Verdana, sans-serif, cursive;
+    font-size: large;
+    margin: 0;
 }
 
 h1 {
-    font-family: Monoton;
+    font-family: 'Gloria Hallelujah', cursive;
     font-size: 70px;
     margin: 0.2em;
 }
 
 h2 {
     margin: 1em 0 0.25em;
-}
-
-
-table,
-tr,
-td {
-    border: 1px solid black;
-}
-
-table {
-    border-collapse: collapse;
-    margin: 0 auto;
 }
 
 a:link, a:visited {
@@ -77,4 +95,41 @@ a:link, a:visited {
 
 a:hover, a:active {
   background-color: red;
+}
+
+.box {
+    border: 0.5px solid grey;
+    border-radius: 1em;
+    background: rgba(233, 133, 86, 0.349);
+    box-shadow: 10px 12px 5px -5px rgba(0,0,0,0.71);
+}
+
+p {
+    font-size: 1.7em;
+}
+
+h5 {
+    font-size: 2.3em;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+  
+/* Add some padding inside the card container */
+.container {
+    padding: 2px 16px;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    background: #ffdcdc;
+    border-radius: 5px; /* 5px rounded corners */
+}
+  
+/* Add rounded corners to the top left and the top right corner of the image */
+img {
+    border-radius: 5px 5px 0 0;
 }
