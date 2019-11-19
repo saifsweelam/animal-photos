@@ -18,6 +18,10 @@
     </div>
     <div class="page">
         <div class="list">
+            <div class="route">
+                <span onclick="location.href=`{{url_for('showSpecies')}}`;" class="route_item">Home</span> --> <span
+                    class="route_item">{{species.name}}</span>
+            </div>
             {% for photo in photos %}
             <div class="card">
                 <img src="{{photo.url}}" alt="{{photo.title}}" style="width:100%">

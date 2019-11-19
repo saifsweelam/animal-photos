@@ -18,6 +18,12 @@
     </div>
     <div class="page">
         <div class="list">
+            <div class="route">
+                <span onclick="location.href=`{{url_for('showSpecies')}}`;" class="route_item">Home</span> --> <span
+                    class="route_item"
+                    onclick="location.href=`{{url_for('showPhotos', species_id=species.id)}}`;">{{species.name}}</span>
+                --> <span class="route_item">{{photo.title}}</span>
+            </div>
             <div class="toolbar">
                 <a href="#" class="tool">Edit Post</a>
                 <a href="#" class="tool">Delete Post</a>

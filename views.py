@@ -33,8 +33,8 @@ app = Flask(__name__)
 
 # Main Species are displayed in homepage
 @app.route('/')
-@app.route('/home')
-@app.route('/species')
+@app.route('/home/')
+@app.route('/species/')
 def showSpecies():
     species = session.query(Species).all()
     if 'username' not in login_session:
@@ -42,7 +42,7 @@ def showSpecies():
     return render_template('home.html', species=species)
 
 # A webpage to display photos in a species
-@app.route('/species/<int:species_id>')
+@app.route('/species/<int:species_id>/')
 def showPhotos(species_id):
     species = session.query(Species).filter_by(id=species_id).one()
     photos = session.query(Photo).filter_by(species_id=species_id).all()
@@ -52,7 +52,7 @@ def showPhotos(species_id):
 
 
 # Show a specific Photo
-@app.route('/species/<int:species_id>/<int:photo_id>')
+@app.route('/species/<int:species_id>/<int:photo_id>/')
 def showAPhoto(species_id, photo_id):
     species = session.query(Species).filter_by(id=species_id).one()
     photo = session.query(Photo).filter_by(id=photo_id).one()
@@ -64,7 +64,7 @@ def showAPhoto(species_id, photo_id):
     return render_template('userphotoview.html', species=species, creator=creator, photo=photo)
 
 # Route for Login Page
-@app.route('/login')
+@app.route('/login/')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in range(32))
@@ -72,7 +72,7 @@ def showLogin():
     return render_template('login.html', STATE=state)
 
 # Method to connect to Google and Login
-@app.route('/gconnect', methods=['POST'])
+@app.route('/gconnect/', methods=['POST'])
 def gconnect():
     # Validate state token
     if request.args.get('state') != login_session['state']:
@@ -163,7 +163,7 @@ def gconnect():
     return output
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
-@app.route('/gdisconnect')
+@app.route('/gdisconnect/')
 def gdisconnect():
         # Only disconnect a connected user.
     access_token = login_session.get('access_token')
