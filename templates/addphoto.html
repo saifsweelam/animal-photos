@@ -1,0 +1,55 @@
+<html lang="en">
+
+<head>
+    <title>Animal Photos | Add a new Photo</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Gloria+Hallelujah&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <div class="title">
+            <h1>Animal Photos</h1>
+            <h3>Animal photography worldwide network</h3>
+        </div>
+        <div class="login_area">
+            <a href='{{url_for("gdisconnect")}}'>Logout</a>
+        </div>
+    </div>
+    <div class="page">
+        <div class="form">
+            <form action="{{url_for('newPhoto')}}" method="POST">
+                <h5>Add a new photo</h5>
+                <label for="title" class="form_label">Title of photo</label>
+                <input type="text" placeholder="Enter the photo title her" name="title" class="form_text_input"
+                    required='true'><br>
+                <label for="url" class="form_label">URL of photo</label>
+                <input type="text" placeholder="Enter the photo url her" name="url" class="form_text_input"
+                    required="true"><br>
+                <b>You can upload your photos and get a sharable link via <span class="route_item"
+                        onclick="location.href=`https://imgbb.com/upload`;">imgbb.com</span></b><br>
+                <label for="description" class="form_label">Description of photo</label>
+                <textarea placeholder="Enter the photo description her" name="description" class="form_text_input"></textarea><br>
+                <label for="species" class="form_label">Species</label>
+                <select name="species" class="form_text_input" required="true">
+                    {% for x in species %}
+                    <option value="{{x.name}}">{{x.name}}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Create" class="form_submit">
+            </form>
+        </div>
+        <div class="sidebar">
+            <div id="about" class="box">
+                <h5>About Animal Photos</h5>
+                <p>
+                    This Web App was designed by <em>Seif El-Din Sweilam</em> as a project in <strong>Udacity</strong>
+                    nanodegree program. All photos and content in this webapp are for educational purposes only and
+                    won't be used in any type of business.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

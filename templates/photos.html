@@ -23,8 +23,8 @@
                     class="route_item">{{species.name}}</span>
             </div>
             <div class="toolbar">
-                <a href="#" class="tool">Add a new species</a>
-                <a href="#" class="tool">Add a new photo</a>
+                <a href="{{url_for('newSpecies')}}" class="tool">Add a new species</a>
+                <a href="{{url_for('newPhoto')}}" class="tool">Add a new photo</a>
                 <a href="#" class="tool">My Uploads</a>
             </div>
             {% for photo in photos %}

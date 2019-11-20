@@ -78,6 +78,27 @@ def newSpecies():
         flash('Successfully created a new species "{}"'.format(species.name))
         return redirect('/')
 
+# Add a new Photo
+@app.route('/species/photos/new', methods=['GET', 'POST'])
+def newPhoto():
+    if 'username' not in login_session:
+        return redirect('/login')
+    species = session.query(Species).all()
+    if request.method == 'GET':
+        return render_template('addphoto.html', species=species)
+    if request.method == 'POST':
+        title = request.form['title']
+        url = request.form['url']
+        description = request.form['description']
+        species_name = request.form['species']
+        species = session.query(Species).filter_by(name=species_name).one()
+        user = session.query(User).filter_by(username=login_session['username']).one()
+        photo = Photo(title=title, url=url, description=description, species=species, user=user)
+        session.add(photo)
+        session.commit()
+        flash('Successfully created a new photo')
+        return redirect(url_for('showPhotos', species_id=species.id))
+
 # Route for Login Page
 @app.route('/login/')
 def showLogin():
