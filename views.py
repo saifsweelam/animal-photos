@@ -63,6 +63,21 @@ def showAPhoto(species_id, photo_id):
         return render_template('photoview.html', species=species, creator=creator, photo=photo)
     return render_template('userphotoview.html', species=species, creator=creator, photo=photo)
 
+# Add a new Species
+@app.route('/species/new/', methods=['GET', 'POST'])
+def newSpecies():
+    if 'username' not in login_session:
+        return redirect('/login')
+    if request.method == 'GET':
+        return render_template('addspecies.html')
+    if request.method == 'POST':
+        name = request.form['name']
+        species = Species(name=name)
+        session.add(species)
+        session.commit()
+        flash('Successfully created a new species "{}"'.format(species.name))
+        return redirect('/')
+
 # Route for Login Page
 @app.route('/login/')
 def showLogin():
@@ -72,7 +87,7 @@ def showLogin():
     return render_template('login.html', STATE=state)
 
 # Method to connect to Google and Login
-@app.route('/gconnect/', methods=['POST'])
+@app.route('/gconnect', methods=['POST'])
 def gconnect():
     # Validate state token
     if request.args.get('state') != login_session['state']:
@@ -183,10 +198,9 @@ def gdisconnect():
         del login_session['username']
         del login_session['email']
         del login_session['picture']
+        flash('Successfully Disconnected')
 
-        response = make_response(json.dumps('Successfully disconnected.'), 301)
-        response.headers['Location'] = '/'
-        return response
+        return redirect('/')
     else:
         # For whatever reason, the given token was invalid.
         response = make_response(

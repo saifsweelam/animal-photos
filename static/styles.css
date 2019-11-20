@@ -165,4 +165,5 @@ img {
     background-color: none;
     text-decoration: underline;
     font-size: 1.5em;
+    cursor: pointer;
 }
