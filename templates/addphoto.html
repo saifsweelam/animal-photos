@@ -27,27 +27,17 @@
                 <input type="text" placeholder="Enter the photo url her" name="url" class="form_text_input"
                     required="true"><br>
                 <b>You can upload your photos and get a sharable link via <span class="route_item"
-                        onclick="location.href=`https://imgbb.com/upload`;">imgbb.com</span></b><br>
-                <label for="description" class="form_label">Description of photo</label>
+                        onclick="window.open(`https://imgbb.com/upload`);">imgbb.com</span></b><br>
+                <label for="description" class="form_label">Description of photo</label><br>
                 <textarea placeholder="Enter the photo description her" name="description" class="form_text_input"></textarea><br>
                 <label for="species" class="form_label">Species</label>
                 <select name="species" class="form_text_input" required="true">
                     {% for x in species %}
                     <option value="{{x.name}}">{{x.name}}</option>
                     {% endfor %}
-                </select>
+                </select><br>
                 <input type="submit" value="Create" class="form_submit">
             </form>
-        </div>
-        <div class="sidebar">
-            <div id="about" class="box">
-                <h5>About Animal Photos</h5>
-                <p>
-                    This Web App was designed by <em>Seif El-Din Sweilam</em> as a project in <strong>Udacity</strong>
-                    nanodegree program. All photos and content in this webapp are for educational purposes only and
-                    won't be used in any type of business.
-                </p>
-            </div>
         </div>
     </div>
 </body>
