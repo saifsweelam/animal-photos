@@ -63,6 +63,18 @@ def showAPhoto(species_id, photo_id):
         return render_template('photoview.html', species=species, creator=creator, photo=photo)
     return render_template('userphotoview.html', species=species, creator=creator, photo=photo)
 
+
+# View User's photos
+@app.route('/profile/photos/')
+def showUploads():
+    if 'username' not in login_session:
+        return redirect('/login')
+    user = session.query(User).filter_by(
+        username=login_session['username']).one()
+    photos = session.query(Photo).filter_by(user_id=user.id).all()
+    return render_template('uploads.html', user=user, photos=photos)
+
+
 # Add a new Species
 @app.route('/species/new/', methods=['GET', 'POST'])
 def newSpecies():
@@ -79,7 +91,7 @@ def newSpecies():
         return redirect('/')
 
 # Add a new Photo
-@app.route('/species/photos/new', methods=['GET', 'POST'])
+@app.route('/species/new/photo/', methods=['GET', 'POST'])
 def newPhoto():
     if 'username' not in login_session:
         return redirect('/login')
@@ -92,12 +104,15 @@ def newPhoto():
         description = request.form['description']
         species_name = request.form['species']
         species = session.query(Species).filter_by(name=species_name).one()
-        user = session.query(User).filter_by(username=login_session['username']).one()
-        photo = Photo(title=title, url=url, description=description, species=species, user=user)
+        user = session.query(User).filter_by(
+            username=login_session['username']).one()
+        photo = Photo(title=title, url=url,
+                      description=description, species=species, user=user)
         session.add(photo)
         session.commit()
         flash('Successfully created a new photo')
         return redirect(url_for('showPhotos', species_id=species.id))
+
 
 # Route for Login Page
 @app.route('/login/')
@@ -230,6 +245,8 @@ def gdisconnect():
         return response
 
 # Functions related to users
+
+
 def createUser(email):
     newUser = User(username=login_session['username'], email=login_session[
                    'email'], picture=login_session['picture'])
@@ -251,7 +268,8 @@ def getUserID(email):
     except:
         return None
 
+
 if __name__ == "__main__":
     app.secret_key = 'super_secret_key'
     app.debug = True
-    app.run(host='0.0.0.0', port=5000, threaded = False)
+    app.run(host='0.0.0.0', port=5000, threaded=False)

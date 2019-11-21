@@ -21,7 +21,7 @@
             <div class="toolbar">
                 <a href="{{url_for('newSpecies')}}" class="tool">Add a new species</a>
                 <a href="{{url_for('newPhoto')}}" class="tool">Add a new photo</a>
-                <a href="#" class="tool">My Uploads</a>
+                <a href="{{url_for('showUploads')}}" class="tool">My Uploads</a>
             </div>
             {% for x in species %}
             <div class="item">

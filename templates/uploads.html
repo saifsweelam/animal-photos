@@ -1,7 +1,7 @@
 <html lang="en">
 
 <head>
-    <title>Animal Photos | {{photo.title}}</title>
+    <title>Animal Photos | {{user.username}}'s photos</title>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Acme|Gloria+Hallelujah&display=swap" rel="stylesheet">
 </head>
@@ -20,33 +20,26 @@
         <div class="list">
             <div class="route">
                 <span onclick="location.href=`{{url_for('showSpecies')}}`;" class="route_item">Home</span> --> <span
-                    class="route_item"
-                    onclick="location.href=`{{url_for('showPhotos', species_id=species.id)}}`;">{{species.name}}</span>
-                --> <span class="route_item">{{photo.title}}</span>
+                    class="route_item">{{user.username}}'s photos</span>
             </div>
             <div class="toolbar">
-                <a href="#" class="tool">Edit Post</a>
-                <a href="#" class="tool">Delete Post</a>
-                <a href="{{url_for('showUploads')}}" class="tool">My Uploads</a>
+                <a href="{{url_for('newSpecies')}}" class="tool">Add a new species</a>
+                <a href="{{url_for('newPhoto')}}" class="tool">Add a new photo</a>
             </div>
-            <div class="photo_viewer">
-                <div class="creator_data">
-                    {% if creator.picture is not none %}
-                    <img src="{{creator.picture}}" alt="{{creator.username}}" class="creator_pic">
-                    {% else %}
-                    <img src="{{url_for('static', filename='blank_user.gif')}}" alt="{{creator.username}}"
-                        class="creator_pic">
-                    {% endif %}
-                    <h6 class="creator_name">{{creator.username}}</h6>
-                </div>
+            {% for photo in photos %}
+            <div class="card">
                 <img src="{{photo.url}}" alt="{{photo.title}}" style="width:100%">
                 <div class="container">
                     <h5><b>{{photo.title}}</b></h5>
                     {% if photo.description is not none %}
                     <p>{{photo.description}}</p>
                     {% endif %}
+                    <a href="{{url_for('showAPhoto',species_id=photo.species_id, photo_id=photo.id)}}">View</a>
+                    <a href="#">Edit</a>
+                    <a href="#">Delete</a>
                 </div>
             </div>
+            {% endfor %}
         </div>
         <div class="sidebar">
             <div id="about" class="box">
