@@ -18,6 +18,7 @@
         }
     </script>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Gloria+Hallelujah&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -28,6 +29,10 @@
         </div>
     </div>
     <div class="login_page">
+        <div class="route">
+            <span onclick="location.href=`{{url_for('showSpecies')}}`;" class="route_item">Home</span> --> <span
+                class="route_item">Login Page</span>
+        </div>
         <div class="providers">
             <button id="signinButton"></button>
             <div id="result"></div>
