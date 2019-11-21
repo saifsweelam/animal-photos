@@ -1,0 +1,31 @@
+<html lang="en">
+
+<head>
+    <title>Animal Photos | Delete a Photo</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Gloria+Hallelujah&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <div class="title">
+            <h1>Animal Photos</h1>
+            <h3>Animal photography worldwide network</h3>
+        </div>
+        <div class="login_area">
+            <a href='{{url_for("gdisconnect")}}'>Logout</a>
+        </div>
+    </div>
+    <div class="page">
+        <div class="form">
+            <form action="{{url_for('deletePhoto', species_id=photo.species_id, photo_id=photo.id)}}" method="POST">
+                <h5>Delete a photo</h5>
+                <label for="submit" class="form_label">Are you sure you want to delete {{photo.name}}?</label><br>
+                <input type="submit" value="Delete" class="form_submit"><br>
+                <a href="{{url_for('showAPhoto', species_id=photo.species_id, photo_id=photo.id)}}">Cancel</a>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

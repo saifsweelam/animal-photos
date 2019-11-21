@@ -117,12 +117,12 @@ def newPhoto():
 @app.route('/species/<int:species_id>/<int:photo_id>/edit/', methods=['GET', 'POST'])
 def editPhoto(species_id, photo_id):
     if 'username' not in login_session:
-        return redirect('/login')
+        return redirect(url_for('showLogin'))
     photo = session.query(Photo).filter_by(id=photo_id).one()
     creator = session.query(User).filter_by(id=photo.user_id).one()
     all_species = session.query(Species).all()
     if creator.username != login_session['username']:
-        return "<script>function warning(){alert('You\\'re not authenticated to do this change here. Please do it in your own photos.Regards!')}</script>"
+        return render_template('unauthorized.html')
     if request.method == 'GET':
         return render_template('editphoto.html', photo=photo, species=all_species)
     if request.method == 'POST':
@@ -139,6 +139,24 @@ def editPhoto(species_id, photo_id):
         session.commit()
         flash('Successfully modified photo')
         return redirect(url_for('showAPhoto', species_id=photo.species_id, photo_id=photo.id))
+
+
+# Delete a Photo
+@app.route('/species/<int:species_id>/<int:photo_id>/delete/', methods=['POST', 'GET'])
+def deletePhoto(species_id, photo_id):
+    if 'username' not in login_session:
+        return redirect(url_for('showLogin'))
+    photo = session.query(Photo).filter_by(id=photo_id).one()
+    creator = session.query(User).filter_by(id=photo.user_id).one()
+    if creator.username != login_session['username']:
+        return render_template('unauthorized.html')
+    if request.method == 'GET':
+        return render_template('deletephoto.html', photo=photo)
+    if request.method == 'POST':
+        session.delete(photo)
+        session.commit()
+        flash('Successfully deleted photo')
+        return redirect(url_for('showPhotos', species_id=species_id))
 
 # Route for Login Page
 @app.route('/login/')

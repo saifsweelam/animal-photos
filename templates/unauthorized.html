@@ -1,0 +1,29 @@
+<html lang="en">
+
+<head>
+    <title>Animal Photos | 401 UNAUTHORIZED</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Gloria+Hallelujah&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <div class="title">
+            <h1>Animal Photos</h1>
+            <h3>Animal photography worldwide network</h3>
+        </div>
+        <div class="login_area">
+            <a href='{{url_for("gdisconnect")}}'>Logout</a>
+        </div>
+    </div>
+    <div class="page">
+        <div class="error_message">
+            <h1>401 UNAUTHORIZED</h1>
+            <h2>You aren't allowed to do this change to this item</h2>
+            <h3>You can only modify your own items</h3>
+            <a href="{{url_for('showSpecies')}}">Go Home</a>
+        </div>
+    </div>
+</body>
+
+</html>

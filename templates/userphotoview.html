@@ -26,7 +26,7 @@
             </div>
             <div class="toolbar">
                 <a href="{{url_for('editPhoto', species_id=photo.species_id, photo_id=photo.id)}}" class="tool">Edit Post</a>
-                <a href="#" class="tool">Delete Post</a>
+                <a href="{{url_for('deletePhoto', species_id=photo.species_id, photo_id=photo.id))}}" class="tool">Delete Post</a>
                 <a href="{{url_for('showUploads')}}" class="tool">My Uploads</a>
             </div>
             <div class="photo_viewer">

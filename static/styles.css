@@ -43,6 +43,7 @@
   margin: 5em;
   background: rgb(255, 216, 168);
   padding: 2em;
+  border-radius: 20px;
 }
 
 .toolbar {

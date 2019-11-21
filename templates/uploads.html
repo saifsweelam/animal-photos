@@ -36,7 +36,7 @@
                     {% endif %}
                     <a href="{{url_for('showAPhoto',species_id=photo.species_id, photo_id=photo.id)}}">View</a>
                     <a href="{{url_for('editPhoto', species_id=photo.species_id, photo_id=photo.id)}}">Edit</a>
-                    <a href="#">Delete</a>
+                    <a href="{{url_for('deletePhoto', species_id=photo.species_id, photo_id=photo.id))}}">Delete</a>
                 </div>
             </div>
             {% endfor %}
