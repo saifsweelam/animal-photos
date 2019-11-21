@@ -35,7 +35,7 @@
                     <p>{{photo.description}}</p>
                     {% endif %}
                     <a href="{{url_for('showAPhoto',species_id=photo.species_id, photo_id=photo.id)}}">View</a>
-                    <a href="#">Edit</a>
+                    <a href="{{url_for('editPhoto', species_id=photo.species_id, photo_id=photo.id)}}">Edit</a>
                     <a href="#">Delete</a>
                 </div>
             </div>

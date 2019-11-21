@@ -113,6 +113,32 @@ def newPhoto():
         flash('Successfully created a new photo')
         return redirect(url_for('showPhotos', species_id=species.id))
 
+# Edit an existing Photo
+@app.route('/species/<int:species_id>/<int:photo_id>/edit/', methods=['GET', 'POST'])
+def editPhoto(species_id, photo_id):
+    if 'username' not in login_session:
+        return redirect('/login')
+    photo = session.query(Photo).filter_by(id=photo_id).one()
+    creator = session.query(User).filter_by(id=photo.user_id).one()
+    all_species = session.query(Species).all()
+    if creator.username != login_session['username']:
+        return "<script>function warning(){alert('You\\'re not authenticated to do this change here. Please do it in your own photos.Regards!')}</script>"
+    if request.method == 'GET':
+        return render_template('editphoto.html', photo=photo, species=all_species)
+    if request.method == 'POST':
+        if request.form['title'] != photo.title:
+            photo.title = request.form['title']
+        if request.form['url'] != photo.url:
+            photo.url = request.form['url']
+        if request.form['description'] != photo.description:
+            photo.description = request.form['description']
+        if request.form['species'] != photo.species.name:
+            species_name = request.form['species']
+            photo.species = session.query(Species).filter_by(name=species_name).one()
+        session.add(photo)
+        session.commit()
+        flash('Successfully modified photo')
+        return redirect(url_for('showAPhoto', species_id=photo.species_id, photo_id=photo.id))
 
 # Route for Login Page
 @app.route('/login/')

@@ -25,7 +25,7 @@
                 --> <span class="route_item">{{photo.title}}</span>
             </div>
             <div class="toolbar">
-                <a href="#" class="tool">Edit Post</a>
+                <a href="{{url_for('editPhoto', species_id=photo.species_id, photo_id=photo.id)}}" class="tool">Edit Post</a>
                 <a href="#" class="tool">Delete Post</a>
                 <a href="{{url_for('showUploads')}}" class="tool">My Uploads</a>
             </div>
