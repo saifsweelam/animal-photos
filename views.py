@@ -334,6 +334,35 @@ def gdisconnect():
 
         return redirect('/')
 
+
+
+# API Endpoints
+
+# Get All Species
+@app.route('/API/species/')
+def showSpeciesJSON():
+    species = session.query(Species).all()
+    return jsonify(species=[i.serialize for i in species])
+
+# Get All Photos
+@app.route('/API/photos/')
+def showAllPhotosJSON():
+    photos = session.query(Photo).all()
+    return jsonify(photos=[i.serialize for i in photos])
+
+# Get Photos of certain species
+@app.route('/API/species/<int:species_id>')
+def showPhotosJSON(species_id):
+    photos = session.query(Photo).filter_by(species_id=species_id).all()
+    return jsonify(photos=[i.serialize for i in photos])
+
+# Get a certain photo
+@app.route('/API/species/<int:species_id>/<int:photo_id>')
+def showAPhotoJSON(species_id, photo_id):
+    photo = session.query(Photo).filter_by(species_id=species_id, id=photo_id).one()
+    return jsonify(photo_data=photo.serialize)
+
+
 # Functions related to users
 
 
