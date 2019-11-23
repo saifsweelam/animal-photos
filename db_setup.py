@@ -9,10 +9,11 @@ from passlib.apps import custom_app_context as pwd_context
 
 Base = declarative_base()
 
+
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
-    username = Column(String(32), index=True, nullable = False)
+    username = Column(String(32), index=True, nullable=False)
     email = Column(String(250), nullable=False)
     picture = Column(String(250))
     password_hash = Column(String(64))
@@ -22,6 +23,7 @@ class User(Base):
 
     def verify_password(self, password):
         return pwd_context.verify(password, self.password_hash)
+
 
 class Species(Base):
     __tablename__ = 'species'
@@ -35,6 +37,7 @@ class Species(Base):
             'id': self.id,
             'name': self.name
         }
+
 
 class Photo(Base):
     __tablename__ = 'photo'
@@ -58,6 +61,6 @@ class Photo(Base):
         }
 
 engine = create_engine('sqlite:///animalphotos.db')
- 
+
 
 Base.metadata.create_all(engine)
