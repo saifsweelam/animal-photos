@@ -68,7 +68,7 @@ def showAPhoto(species_id, photo_id):
 @app.route('/profile/photos/')
 def showUploads():
     if 'username' not in login_session:
-        return redirect('/login')
+        return redirect(url_for('showLogin'))
     user = session.query(User).filter_by(
         username=login_session['username']).one()
     photos = session.query(Photo).filter_by(user_id=user.id).all()
@@ -79,7 +79,7 @@ def showUploads():
 @app.route('/species/new/', methods=['GET', 'POST'])
 def newSpecies():
     if 'username' not in login_session:
-        return redirect('/login')
+        return redirect(url_for('showLogin'))
     if request.method == 'GET':
         return render_template('addspecies.html')
     if request.method == 'POST':
@@ -88,13 +88,13 @@ def newSpecies():
         session.add(species)
         session.commit()
         flash('Successfully created a new species "{}"'.format(species.name))
-        return redirect('/')
+        return redirect(url_for('showSpecies'))
 
 # Add a new Photo
 @app.route('/species/new/photo/', methods=['GET', 'POST'])
 def newPhoto():
     if 'username' not in login_session:
-        return redirect('/login')
+        return redirect(url_for('showLogin'))
     species = session.query(Species).all()
     if request.method == 'GET':
         return render_template('addphoto.html', species=species)
@@ -302,8 +302,8 @@ def gconnect():
     return output
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
-@app.route('/gdisconnect/')
-def gdisconnect():
+@app.route('/disconnect/')
+def disconnect():
     if 'gplus_id' in login_session:
         # Only disconnect a connected user.
         access_token = login_session.get('access_token')
@@ -324,7 +324,7 @@ def gdisconnect():
         del login_session['picture']
         flash('Successfully Disconnected')
 
-        return redirect('/')
+        return redirect(url_for('showSpecies'))
     else:
         del login_session['username']
         del login_session['email']
@@ -332,7 +332,7 @@ def gdisconnect():
         
         flash('Successfully Disconnected')
 
-        return redirect('/')
+        return redirect(url_for('showSpecies'))
 
 
 
