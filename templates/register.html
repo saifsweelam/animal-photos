@@ -1,0 +1,42 @@
+<html lang="en">
+
+<head>
+    <title>Animal Photos | Register a new User</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Gloria+Hallelujah&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <div class="title">
+            <h1>Animal Photos</h1>
+            <h3>Animal photography worldwide network</h3>
+        </div>
+        <div class="login_area">
+            <a href='{{url_for("gdisconnect")}}'>Logout</a>
+        </div>
+    </div>
+    <div class="page">
+        <div class="form">
+            <form action="{{url_for('showRegister')}}" method="POST">
+                <h5>Create a new User</h5>
+                <label for="username" class="form_label">Full Name</label>
+                <input type="text" placeholder="Enter your name here" name="username" class="form_text_input"
+                    required><br>
+                <label for="picture" class="form_label">Profile Picture</label>
+                <input type="text" placeholder="Enter the URL for your profile picture" name="picture"
+                    class="form_text_input"><br>
+                <b>You can upload your photos and get a sharable link via <span class="route_item"
+                        onclick="window.open(`https://imgbb.com/upload`);">imgbb.com</span></b><br>
+                <label for="email" class="form_label">E-mail Address</label><br>
+                <input type="text" name="email" class="form_text_input" required><br>
+                <label for="password" class="form_label">Password</label><br>
+                <input type="password" name="password" class="form_text_input" required><br>
+                By Clicking Create you accept the privacy policy and the terms of services that I honestly don't know.
+                <input type="submit" value="Create" class="form_submit">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

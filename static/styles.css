@@ -175,7 +175,7 @@ img {
     cursor: pointer;
 }
 
-input[type=text], select, textarea {
+input[type=text], select, textarea, input[type=password] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;

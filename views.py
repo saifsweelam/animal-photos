@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
+from flask import Flask, render_template, request, redirect, jsonify, url_for, flash, abort
 
 
 from sqlalchemy import create_engine, asc
@@ -159,12 +159,56 @@ def deletePhoto(species_id, photo_id):
         return redirect(url_for('showPhotos', species_id=species_id))
 
 # Route for Login Page
-@app.route('/login/')
+@app.route('/login/', methods=['GET','POST'])
 def showLogin():
-    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in range(32))
-    login_session['state'] = state
-    return render_template('login.html', STATE=state)
+    if request.method == 'GET':
+        if 'username' in login_session:
+            flash('You\'re already logged in')
+            return redirect(url_for('showSpecies'))
+        state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                        for x in range(32))
+        login_session['state'] = state
+        return render_template('login.html', STATE=state)
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = session.query(User).filter_by(email=email).one()
+        if not user or not user.verify_password(password):
+            return "<script>alert('Check that you enter correct data for E-mail & password'); location.href='/login';</script>"
+        login_session['username'] = user.username
+        login_session['email'] = user.email
+        if user.picture:
+            login_session['picture'] = user.picture
+        flash('Successfully logged in as {}'.format(login_session['username']))
+        return redirect(url_for('showSpecies'))
+
+
+# Route for Registering a new User
+@app.route('/register/', methods=['GET', 'POST'])
+def showRegister():
+    if request.method == 'GET':
+        if 'username' in login_session:
+            flash('You\'re already logged in')
+            return redirect(url_for('showSpecies'))
+        return render_template('register.html')
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        picture = request.form['picture']
+        if username is None or email is None or password is None:
+            return "<script>alert('Please enter your Name, E-mail & Password'); location.href='/register';</script>"
+        if session.query(User).filter_by(email = email).first() is not None:
+            return "<script>alert('User already exists'); location.href='/login';</script>"
+        newUser = User(username=username, email=email)
+        if picture:
+            newUser.picture = picture
+        newUser.hash_password(password)
+        session.add(newUser)
+        session.commit()
+        flash('User was created Successfully. You can login now.')
+        return redirect(url_for('showLogin'))
+
 
 # Method to connect to Google and Login
 @app.route('/gconnect', methods=['POST'])
@@ -260,18 +304,18 @@ def gconnect():
 # DISCONNECT - Revoke a current user's token and reset their login_session
 @app.route('/gdisconnect/')
 def gdisconnect():
+    if 'gplus_id' in login_session:
         # Only disconnect a connected user.
-    access_token = login_session.get('access_token')
-    if access_token is None:
-        response = make_response(
-            json.dumps('Current user not connected.'), 401)
-        response.headers['Content-Type'] = 'application/json'
-        return response
-    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
-    h = httplib2.Http()
-    result = h.request(url, 'GET')[0]
+        access_token = login_session.get('access_token')
+        if access_token is None:
+            response = make_response(
+                json.dumps('Current user not connected.'), 401)
+            response.headers['Content-Type'] = 'application/json'
+            return response
+        url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
+        h = httplib2.Http()
+        h.request(url, 'GET')
 
-    if result['status'] == '200':
         # Reset the user's sesson.
         del login_session['access_token']
         del login_session['gplus_id']
@@ -282,11 +326,13 @@ def gdisconnect():
 
         return redirect('/')
     else:
-        # For whatever reason, the given token was invalid.
-        response = make_response(
-            json.dumps('Failed to revoke token for given user.', 400))
-        response.headers['Content-Type'] = 'application/json'
-        return response
+        del login_session['username']
+        del login_session['email']
+        del login_session['picture']
+        
+        flash('Successfully Disconnected')
+
+        return redirect('/')
 
 # Functions related to users
 

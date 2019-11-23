@@ -22,15 +22,15 @@
                 <h5>Edit a photo</h5>
                 <label for="title" class="form_label">Title of photo</label>
                 <input type="text" placeholder="Enter the photo title her" name="title" class="form_text_input"
-                    required='true' value="{{photo.title}}"><br>
+                    required value="{{photo.title}}"><br>
                 <label for="url" class="form_label">URL of photo</label>
                 <input type="text" placeholder="Enter the photo url her" name="url" class="form_text_input"
-                    required="true" value="{{photo.url}}"><br>
+                    required value="{{photo.url}}"><br>
                 <label for="description" class="form_label">Description of photo</label>
                 <textarea placeholder="Enter the photo description her" name="description"
                     class="form_text_input">{{photo.description}}</textarea><br>
                 <label for="species" class="form_label">Species</label>
-                <select name="species" class="form_text_input" required="true">
+                <select name="species" class="form_text_input" required>
                     {% for x in species %}
                     {% if photo.species_id == x.id %}
                     <option value="{{x.name}}" selected="selected">{{x.name}}</option>

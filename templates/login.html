@@ -1,7 +1,7 @@
 <html lang="en" itemscope itemtype="http://schema.org/Article">
 
 <head>
-    <title>Animal Photos</title>
+    <title>Animal Photos | Login</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
     </script>
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
@@ -36,6 +36,17 @@
         <div class="providers">
             <button id="signinButton"></button>
             <div id="result"></div>
+        </div>
+        <div class="form">
+            <form action="{{url_for('showLogin')}}" method="POST">
+                <h5>Sign In using E-mail</h5>
+                <label for="email" class="form_label">E-mail Adress</label><br>
+                <input type="text" name="email" class="form_text_input"><br>
+                <label for="password" class="form_label">Password</label><br>
+                <input type="password" name="password" class="form_text_input"><br>
+                <input type="submit" value="Sign In">
+                Don't have an account?<a href="{{url_for('showRegister')}}">Register Now</a>
+            </form>
         </div>
     </div>
     <script>
