@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, redirect, jsonify, url_for, flash, abort
+from flask import (
+    Flask, render_template, request, redirect, jsonify, url_for, flash, abort
+)
 
 
 from sqlalchemy import create_engine, asc
@@ -31,6 +33,7 @@ APPLICATION_NAME = "Animal Photos"
 # Initializing Flask app
 app = Flask(__name__)
 
+
 # Main Species are displayed in homepage
 @app.route('/')
 @app.route('/home/')
@@ -41,13 +44,15 @@ def showSpecies():
         return render_template('publichome.html', species=species)
     return render_template('home.html', species=species)
 
+
 # A webpage to display photos in a species
 @app.route('/species/<int:species_id>/')
 def showPhotos(species_id):
     species = session.query(Species).filter_by(id=species_id).one()
     photos = session.query(Photo).filter_by(species_id=species_id).all()
     if 'username' not in login_session:
-        return render_template('publicphotos.html', photos=photos, species=species)
+        return render_template(
+            'publicphotos.html', photos=photos, species=species)
     return render_template('photos.html', photos=photos, species=species)
 
 
@@ -58,10 +63,14 @@ def showAPhoto(species_id, photo_id):
     photo = session.query(Photo).filter_by(id=photo_id).one()
     creator = session.query(User).filter_by(id=photo.user_id).one()
     if 'username' not in login_session:
-        return render_template('publicphotoview.html', species=species, creator=creator, photo=photo)
+        return render_template(
+            'publicphotoview.html', species=species,
+            creator=creator, photo=photo)
     if login_session['username'] != creator.username:
-        return render_template('photoview.html', species=species, creator=creator, photo=photo)
-    return render_template('userphotoview.html', species=species, creator=creator, photo=photo)
+        return render_template(
+            'photoview.html', species=species, creator=creator, photo=photo)
+    return render_template(
+        'userphotoview.html', species=species, creator=creator, photo=photo)
 
 
 # View User's photos
@@ -90,6 +99,7 @@ def newSpecies():
         flash('Successfully created a new species "{}"'.format(species.name))
         return redirect(url_for('showSpecies'))
 
+
 # Add a new Photo
 @app.route('/species/new/photo/', methods=['GET', 'POST'])
 def newPhoto():
@@ -113,8 +123,10 @@ def newPhoto():
         flash('Successfully created a new photo')
         return redirect(url_for('showPhotos', species_id=species.id))
 
+
 # Edit an existing Photo
-@app.route('/species/<int:species_id>/<int:photo_id>/edit/', methods=['GET', 'POST'])
+@app.route(
+    '/species/<int:species_id>/<int:photo_id>/edit/', methods=['GET', 'POST'])
 def editPhoto(species_id, photo_id):
     if 'username' not in login_session:
         return redirect(url_for('showLogin'))
@@ -124,7 +136,8 @@ def editPhoto(species_id, photo_id):
     if creator.username != login_session['username']:
         return render_template('unauthorized.html')
     if request.method == 'GET':
-        return render_template('editphoto.html', photo=photo, species=all_species)
+        return render_template(
+            'editphoto.html', photo=photo, species=all_species)
     if request.method == 'POST':
         if request.form['title'] != photo.title:
             photo.title = request.form['title']
@@ -134,15 +147,18 @@ def editPhoto(species_id, photo_id):
             photo.description = request.form['description']
         if request.form['species'] != photo.species.name:
             species_name = request.form['species']
-            photo.species = session.query(Species).filter_by(name=species_name).one()
+            photo.species = session.query(
+                Species).filter_by(name=species_name).one()
         session.add(photo)
         session.commit()
         flash('Successfully modified photo')
-        return redirect(url_for('showAPhoto', species_id=photo.species_id, photo_id=photo.id))
+        return redirect(url_for(
+            'showAPhoto', species_id=photo.species_id, photo_id=photo.id))
 
 
 # Delete a Photo
-@app.route('/species/<int:species_id>/<int:photo_id>/delete/', methods=['POST', 'GET'])
+@app.route('/species/<int:species_id>/<int:photo_id>/delete/', methods=[
+    'POST', 'GET'])
 def deletePhoto(species_id, photo_id):
     if 'username' not in login_session:
         return redirect(url_for('showLogin'))
@@ -158,8 +174,9 @@ def deletePhoto(species_id, photo_id):
         flash('Successfully deleted photo')
         return redirect(url_for('showPhotos', species_id=species_id))
 
+
 # Route for Login Page
-@app.route('/login/', methods=['GET','POST'])
+@app.route('/login/', methods=['GET', 'POST'])
 def showLogin():
     if request.method == 'GET':
         if 'username' in login_session:
@@ -174,7 +191,8 @@ def showLogin():
         password = request.form['password']
         user = session.query(User).filter_by(email=email).one()
         if not user or not user.verify_password(password):
-            return "<script>alert('Check that you enter correct data for E-mail & password'); location.href='/login';</script>"
+            return ("<script>alert('Check that you enter correct data for"
+                    " E-mail & password'); location.href='/login';</script>")
         login_session['username'] = user.username
         login_session['email'] = user.email
         if user.picture:
@@ -197,9 +215,11 @@ def showRegister():
         password = request.form['password']
         picture = request.form['picture']
         if username is None or email is None or password is None:
-            return "<script>alert('Please enter your Name, E-mail & Password'); location.href='/register';</script>"
-        if session.query(User).filter_by(email = email).first() is not None:
-            return "<script>alert('User already exists'); location.href='/login';</script>"
+            return ("<script>alert('Please enter your Name, E-mail & "
+                    "Password'); location.href='/register';</script>")
+        if session.query(User).filter_by(email=email).first() is not None:
+            return ("<script>alert('User already exists'); "
+                    "location.href='/login';</script>")
         newUser = User(username=username, email=email)
         if picture:
             newUser.picture = picture
@@ -263,8 +283,8 @@ def gconnect():
     stored_access_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
     if stored_access_token is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'),
-                                 200)
+        response = make_response(json.dumps(
+            'Current user is already connected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -296,10 +316,12 @@ def gconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += (' " style = "width: 300px; height: 300px;border-radius: 150px;'
+               '-webkit-border-radius: 150px;-moz-border-radius: 150px;"> ')
     flash("you are now logged in as %s" % login_session['username'])
     print('done!')
     return output
+
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
 @app.route('/disconnect/')
@@ -312,7 +334,8 @@ def disconnect():
                 json.dumps('Current user not connected.'), 401)
             response.headers['Content-Type'] = 'application/json'
             return response
-        url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
+        url = 'https://accounts.google.com/o/oauth2/revoke?token={}'.format(
+            access_token)
         h = httplib2.Http()
         h.request(url, 'GET')
 
@@ -329,11 +352,10 @@ def disconnect():
         del login_session['username']
         del login_session['email']
         del login_session['picture']
-        
+
         flash('Successfully Disconnected')
 
         return redirect(url_for('showSpecies'))
-
 
 
 # API Endpoints
@@ -344,11 +366,13 @@ def showSpeciesJSON():
     species = session.query(Species).all()
     return jsonify(species=[i.serialize for i in species])
 
+
 # Get All Photos
 @app.route('/API/photos/')
 def showAllPhotosJSON():
     photos = session.query(Photo).all()
     return jsonify(photos=[i.serialize for i in photos])
+
 
 # Get Photos of certain species
 @app.route('/API/species/<int:species_id>')
@@ -356,10 +380,12 @@ def showPhotosJSON(species_id):
     photos = session.query(Photo).filter_by(species_id=species_id).all()
     return jsonify(photos=[i.serialize for i in photos])
 
+
 # Get a certain photo
 @app.route('/API/species/<int:species_id>/<int:photo_id>')
 def showAPhotoJSON(species_id, photo_id):
-    photo = session.query(Photo).filter_by(species_id=species_id, id=photo_id).one()
+    photo = session.query(Photo).filter_by(
+        species_id=species_id, id=photo_id).one()
     return jsonify(photo_data=photo.serialize)
 
 
