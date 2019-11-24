@@ -414,16 +414,17 @@ def showAPhotoJSON(species_id, photo_id):
 
 # Functions related to users
 
-"""
-Function to Create a new User and add it to the Database
 
-Parameters:
-- The User's E-mail
-
-Returns:
-- The User's ID after being commited to database
-"""
 def createUser(email):
+    """
+    Function to Create a new User and add it to the Database
+
+    Parameters:
+    - The User's E-mail
+
+    Returns:
+    - The User's ID after being commited to database
+    """
     newUser = User(username=login_session['username'], email=login_session[
                    'email'], picture=login_session['picture'])
     session.add(newUser)
@@ -432,30 +433,30 @@ def createUser(email):
     return user.id
 
 
-"""
-Function to Get a  User from the Database
-
-Parameters:
-- The User's ID
-
-Returns:
-- The User Object from a Query inside Database
-"""
 def getUserInfo(user_id):
+    """
+    Function to Get a  User from the Database
+
+    Parameters:
+    - The User's ID
+
+    Returns:
+    - The User Object from a Query inside Database
+    """
     user = session.query(User).filter_by(id=user_id).one()
     return user
 
 
-"""
-Function to Get a User's from the Database
-
-Parameters:
-- The User's E-mail
-
-Returns:
-- The User's ID
-"""
 def getUserID(email):
+    """
+    Function to Get a User's from the Database
+
+    Parameters:
+    - The User's E-mail
+
+    Returns:
+    - The User's ID
+    """
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
