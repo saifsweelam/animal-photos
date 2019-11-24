@@ -29,7 +29,8 @@
                 <b>You can upload your photos and get a sharable link via <span class="route_item"
                         onclick="window.open(`https://imgbb.com/upload`);">imgbb.com</span></b><br>
                 <label for="description" class="form_label">Description of photo</label><br>
-                <textarea placeholder="Enter the photo description her" name="description" class="form_text_input"></textarea><br>
+                <textarea placeholder="Enter the photo description her" name="description"
+                    class="form_text_input"></textarea><br>
                 <label for="species" class="form_label">Species</label>
                 <select name="species" class="form_text_input" required>
                     {% for x in species %}
@@ -37,6 +38,7 @@
                     {% endfor %}
                 </select><br>
                 <input type="submit" value="Create" class="form_submit">
+                <a href="{{url_for('showSpecies')}}">Cancel</a>
             </form>
         </div>
     </div>

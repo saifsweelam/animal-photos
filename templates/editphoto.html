@@ -40,6 +40,7 @@
                     {% endfor %}
                 </select><br>
                 <input type="submit" value="Save" class="form_submit">
+                <a href="{{url_for('showAPhoto', species_id=photo.species_id, photo_id=photo.id)}}">Cancel</a>
             </form>
         </div>
     </div>

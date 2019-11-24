@@ -1,18 +1,26 @@
+#!/usr/bin/env python
+
+# Import Flask Framework
 from flask import (
     Flask, render_template, request, redirect, jsonify, url_for, flash, abort
 )
 
-
+# Modules to work with Database
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from db_setup import Base, Species, Photo, User
 
+# Login Session from flask
 from flask import session as login_session
+
 import random
 import string
+import os
 
+# OAuth2 Client
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
+
 import httplib2
 import json
 from flask import make_response
@@ -46,6 +54,7 @@ def showSpecies():
 
 
 # A webpage to display photos in a species
+# Takes One Parameter (species_id)
 @app.route('/species/<int:species_id>/')
 def showPhotos(species_id):
     species = session.query(Species).filter_by(id=species_id).one()
@@ -57,6 +66,7 @@ def showPhotos(species_id):
 
 
 # Show a specific Photo
+# Takes Two Parameters (species_id, photo_id)
 @app.route('/species/<int:species_id>/<int:photo_id>/')
 def showAPhoto(species_id, photo_id):
     species = session.query(Species).filter_by(id=species_id).one()
@@ -404,7 +414,15 @@ def showAPhotoJSON(species_id, photo_id):
 
 # Functions related to users
 
+"""
+Function to Create a new User and add it to the Database
 
+Parameters:
+- The User's E-mail
+
+Returns:
+- The User's ID after being commited to database
+"""
 def createUser(email):
     newUser = User(username=login_session['username'], email=login_session[
                    'email'], picture=login_session['picture'])
@@ -414,11 +432,29 @@ def createUser(email):
     return user.id
 
 
+"""
+Function to Get a  User from the Database
+
+Parameters:
+- The User's ID
+
+Returns:
+- The User Object from a Query inside Database
+"""
 def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user_id).one()
     return user
 
 
+"""
+Function to Get a User's from the Database
+
+Parameters:
+- The User's E-mail
+
+Returns:
+- The User's ID
+"""
 def getUserID(email):
     try:
         user = session.query(User).filter_by(email=email).one()
@@ -428,6 +464,9 @@ def getUserID(email):
 
 
 if __name__ == "__main__":
-    app.secret_key = 'super_secret_key'
+    # GET or GENERATE app secret key from 'os'
+    app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
+    # Run Debugger to fix any bugs noticed
     app.debug = True
+    # Run application on localhost on port 5000
     app.run(host='0.0.0.0', port=5000, threaded=False)
