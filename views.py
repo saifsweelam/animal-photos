@@ -359,6 +359,11 @@ def disconnect():
 
         return redirect(url_for('showSpecies'))
     else:
+        if 'username' not in login_session:
+            response = make_response(
+                json.dumps('Current user not connected.'), 401)
+            response.headers['Content-Type'] = 'application/json'
+            return response
         # Reset the user's sesson.
         del login_session['username']
         del login_session['email']
