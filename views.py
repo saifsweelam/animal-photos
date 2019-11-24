@@ -349,6 +349,7 @@ def disconnect():
 
         return redirect(url_for('showSpecies'))
     else:
+        # Reset the user's sesson.
         del login_session['username']
         del login_session['email']
         del login_session['picture']
@@ -363,30 +364,42 @@ def disconnect():
 # Get All Species
 @app.route('/API/species/')
 def showSpeciesJSON():
-    species = session.query(Species).all()
-    return jsonify(species=[i.serialize for i in species])
+    try:
+        species = session.query(Species).all()
+        return jsonify(species=[i.serialize for i in species])
+    except:
+        return abort(404)
 
 
 # Get All Photos
 @app.route('/API/photos/')
 def showAllPhotosJSON():
-    photos = session.query(Photo).all()
-    return jsonify(photos=[i.serialize for i in photos])
+    try:
+        photos = session.query(Photo).all()
+        return jsonify(photos=[i.serialize for i in photos])
+    except:
+        return abort(404)
 
 
 # Get Photos of certain species
-@app.route('/API/species/<int:species_id>')
+@app.route('/API/species/<int:species_id>/')
 def showPhotosJSON(species_id):
-    photos = session.query(Photo).filter_by(species_id=species_id).all()
-    return jsonify(photos=[i.serialize for i in photos])
+    try:
+        photos = session.query(Photo).filter_by(species_id=species_id).all()
+        return jsonify(photos=[i.serialize for i in photos])
+    except:
+        return abort(404)
 
 
 # Get a certain photo
-@app.route('/API/species/<int:species_id>/<int:photo_id>')
+@app.route('/API/species/<int:species_id>/<int:photo_id>/')
 def showAPhotoJSON(species_id, photo_id):
-    photo = session.query(Photo).filter_by(
-        species_id=species_id, id=photo_id).one()
-    return jsonify(photo_data=photo.serialize)
+    try:
+        photo = session.query(Photo).filter_by(
+            species_id=species_id, id=photo_id).one()
+        return jsonify(photo_data=photo.serialize)
+    except:
+        return abort(404)
 
 
 # Functions related to users
