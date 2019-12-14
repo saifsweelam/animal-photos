@@ -1,5 +1,5 @@
 # Import Required Modules for SQLAlchemy Initializing
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, TEXT
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -8,6 +8,7 @@ from sqlalchemy import create_engine
 from passlib.apps import custom_app_context as pwd_context
 
 Base = declarative_base()
+SQLALCHEMY_DATABASE_URI = "postgresql://animal-photos:udacity@localhost/animalphotos"
 
 
 class User(Base):
@@ -44,7 +45,7 @@ class Photo(Base):
 
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False)
-    description = Column(String(360))
+    description = Column(TEXT)
     url = Column(String, nullable=False)
     species_id = Column(Integer, ForeignKey('species.id'))
     user_id = Column(Integer, ForeignKey('user.id'))
@@ -60,7 +61,7 @@ class Photo(Base):
             'url': self.url
         }
 
-engine = create_engine('sqlite:///animalphotos.db')
+engine = create_engine(SQLALCHEMY_DATABASE_URI)
 
 
 Base.metadata.create_all(engine)

@@ -1,1 +1,1 @@
-Place your catalog project in this directory.
+Place your animal-photos project in this directory.

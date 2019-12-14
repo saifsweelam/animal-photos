@@ -27,7 +27,8 @@ from flask import make_response
 import requests
 
 # Connection with Database
-engine = create_engine('sqlite:///animalphotos.db')
+SQLALCHEMY_DATABASE_URI = "postgresql://animal-photos:udacity@localhost/animalphotos"
+engine = create_engine(SQLALCHEMY_DATABASE_URI)
 
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
